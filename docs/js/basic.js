@@ -16,7 +16,7 @@ const app = new Vue({
       this.isRegistered = !!window.localStorage.getItem(this.username)
     },
     async register() {
-      let res = await client.register(this.username, window.crypto.randomUUID(), { authType: this.isRoaming ? 'roaming' : 'roaming' })
+      let res = await client.register(this.username, window.crypto.randomUUID(), { authType: this.isRoaming ? 'roaming' : 'both' })
       console.debug(res)
 
       const parsed = parsers.parseRegistration(res)
@@ -35,7 +35,7 @@ const app = new Vue({
     },
     async login() {
       let credentialId = window.localStorage.getItem(this.username)
-      let res = await client.authenticate(credentialId ? [credentialId] : [], window.crypto.randomUUID(), { authType: this.isRoaming ? 'roaming' : 'roaming' })
+      let res = await client.authenticate(credentialId ? [credentialId] : [], window.crypto.randomUUID(), { authType: this.isRoaming ? 'roaming' : 'both' })
       console.debug(res)
 
       const parsed = parsers.parseAuthentication(res)
